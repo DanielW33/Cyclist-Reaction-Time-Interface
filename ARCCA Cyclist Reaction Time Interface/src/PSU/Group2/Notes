@@ -1,0 +1,62 @@
+
+TODO: Needs implementation:
+    - Points are sometimes out of bounds
+Change Log:
+11/02/20
+    - Added IO file to handle reading and writing from files.
+    - Implemented CombineTrials
+    - Moved Panels from inside Util to PSU.Group2
+    - Cleaned ActionListeners code alot by removing redundant try/catch statements
+    - Added Analysis to panels
+    - Added AnalysisListener to ActionListeners
+    - Started implementing Object file TestResults.java to handle calculations. This was done in an effort to keep the ActionListener code as clean as possible
+11/16/20
+    - Finished TestResuts *Unless more calculations are wanted.
+    - Added Graph Panel But have not implemented.
+    - Finished Analysis Panel except for adding Menuitem GraphPanels to menubar
+11/25/20
+    - Finished implementing Graph code.
+    - Implemented graph code for both Combined trials and single trials.
+    -
+
+//Brief program notes:
+
+The program goes from CyclistReactionTime(Main) -> GUIHandler (Interface) -> MainMenu (Panels) -> Some Action listener -> To wherever the user chooses.
+
+When a Button is pushed, it finds that button in it's respective action listener, then preforms the action associated.
+
+Every Panel has it's own action listener.
+
+Writing to file code://///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //This is setup code in the IO java file
+
+    public BufferedWriter setupWriter(String FilePath, boolean append)
+            throws FileNotFoundException {      //This will set up a file writer
+
+        FileOutputStream Fwriter = new FileOutputStream(FilePath, append);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(Fwriter, StandardCharsets.UTF_8);
+
+        return new BufferedWriter(outputStreamWriter);
+    }
+
+    public void write(String vals, BufferedWriter writer) throws IOException {
+        writer.append(vals);                    //This writes the info to it's respective file associated with the writer.
+        writer.newLine();
+    }
+
+    //This is how it would be used <----------------------------------------------------------
+    IO setup = new IO();
+
+    BufferedWriter writer = setup.setupWriter("RunInstructions.txt", true);
+
+    setup.write(var); //writer.append can also be used, this is just a append with a newline to remove repetition
+
+Reading from file code:///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    IO setup = new IO();        //Setting up Input output streams
+
+    BufferedReader Reader = setup.setupReader("RunInstructions.txt");
+    String Line;
+
+    while ((Line = Reader.readLine()) != null) { //variables to be set here }
